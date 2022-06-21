@@ -50,9 +50,11 @@ ipt %>%
 
 ## is every package in .Library either base or recommended?
 all_default_pkgs <- list.files(.Library)
+
 all_br_pkgs <- ipt %>%
   filter(Priority %in% c("base", "recommended")) %>%
   pull(Package)
+
 setdiff(all_default_pkgs, all_br_pkgs)
 
 ## study package naming style (all lower case, contains '.', etc
@@ -60,6 +62,7 @@ setdiff(all_default_pkgs, all_br_pkgs)
 ## use `fields` argument to installed.packages() to get more info and use it!
 ipt2 <- installed.packages(fields = "URL") %>%
   as_tibble()
+
 ipt2 %>%
   mutate(github = grepl("github", URL)) %>%
   count(github) %>%

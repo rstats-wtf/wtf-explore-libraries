@@ -6,11 +6,11 @@
 
 ## let's confirm the second element is, in fact, the default library
 .Library
-identical(.Library, .libPaths()[2])
+identical(.Library, .libPaths())
 
 ## Huh? Maybe this is an symbolic link issue?
 library(fs)
-identical(path_real(.Library), path_real(.libPaths()[2]))
+identical(path_real(.Library), path_real(.libPaths()))
 
 #' Installed packages
 library(tidyverse)

@@ -6,7 +6,7 @@
 
 ## let's confirm the second element is, in fact, the default library
 .Library
-identical(.Library, .libPaths())
+identical(.Library, .libPaths()[2])
 
 ## Huh? Maybe this is an symbolic link issue?
 library(fs)

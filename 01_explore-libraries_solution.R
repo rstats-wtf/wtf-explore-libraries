@@ -10,7 +10,7 @@ identical(.Library, .libPaths())
 
 ## Huh? Maybe this is an symbolic link issue?
 library(fs)
-identical(path_real(.Library), path_real(.libPaths()))
+identical(path_real(.Library), path_real(.libPaths()[2]))
 
 #' Installed packages
 library(tidyverse)

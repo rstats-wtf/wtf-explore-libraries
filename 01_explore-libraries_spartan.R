@@ -1,32 +1,32 @@
-#' Which libraries does R search for packages?
+# A first exploration of installed packages ------------------------------------
 
 
-#' Installed packages
-
-## use installed.packages() to get all installed packages
-
-## how many packages?
+# In which libraries does R search for packages? -------------------------------
 
 
-#' Exploring the packages
-
-## count some things! inspiration
-##   * tabulate by LibPath, Priority, or both
-##   * what proportion need compilation?
-##   * how break down re: version of R they were built on
+# Create a tibble of all installed packages ------------------------------------
 
 
-#' Reflections
 
-## reflect on ^^ and make a few notes to yourself; inspiration
-##   * does the number of base + recommended packages make sense to you?
-##   * how does the result of .libPaths() relate to the result of .Library?
+# How many packages are installed? ---------------------------------------------
 
 
-#' Going further
+# Explore the packages - count some things. ------------------------------------
+# For example, tabulate by LibPath, Priority, or both.
+# What proportion need compilation?
+# What version of R they were built on?
 
-## if you have time to do more ...
 
-## is every package in .Library either base or recommended?
-## study package naming style (all lower case, contains '.', etc
-## use `fields` argument to installed.packages() to get more info and use it!
+
+# Reflect on the above and make a few notes to yourself ------------------------
+# What did you learn about your R package installation?
+# What are you curious to know more about?
+
+
+# If you have time to do more. -------------------------------------------------
+
+# Is every installed package either base or recommended?
+# Explore package naming conventions (all lower case, contains '.', etc)
+# Use `fields` argument to installed.packages() to get more info.
+#   -- What proportion of packages have a URL that point to github?
+

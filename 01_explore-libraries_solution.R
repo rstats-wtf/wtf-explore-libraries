@@ -1,69 +1,81 @@
-## how jenny might do this in a first exploration
-## purposely leaving a few things to change later!
+# A first exploration of installed packages ------------------------------------
+library(fs)
+library(tidyverse)
 
-#' Which libraries does R search for packages?
+
+# In which libraries does R search for packages? -------------------------------
+# your personal computing environment may return one or more locations
 .libPaths()
 
-## let's confirm the second element is, in fact, the default library
+
+# What is your default library? ------------------------------------------------
 .Library
-identical(.Library, .libPaths()[2])
 
-## Huh? Maybe this is an symbolic link issue?
-library(fs)
-identical(path_real(.Library), path_real(.libPaths()[2]))
 
-#' Installed packages
-library(tidyverse)
-ipt <- installed.packages() %>%
+
+# Confirm the library supplied is, in fact, the default library. ---------------
+identical(.Library, .libPaths())
+# if you have more than one result returned by .libPaths(), check one of them
+# identical(.Library, .libPaths()[2])
+
+# Huh? Maybe this is an symbolic link issue?
+identical(path_real(.Library), path_real(.libPaths()))
+# if more than one path
+# identical(path_real(.Library), path_real(.libPaths()[2]))
+
+
+
+# Create a tibble of all installed packages ------------------------------------
+df_pkgs <- installed.packages() |>
   as_tibble()
 
-## how many packages?
-nrow(ipt)
 
-#' Exploring the packages
+# How many packages are installed? ---------------------------------------------
+nrow(df_pkgs)
 
-## count some things! inspiration
-##   * tabulate by LibPath, Priority, or both
-ipt %>%
+
+
+# Explore the packages - count some things. ------------------------------------
+# For example, tabulate by LibPath, Priority, or both.
+df_pkgs |>
   count(LibPath, Priority)
 
-##   * what proportion need compilation?
-ipt %>%
-  count(NeedsCompilation) %>%
+# What proportion need compilation?
+df_pkgs |>
+  count(NeedsCompilation) |>
   mutate(prop = n / sum(n))
 
-##   * how break down re: version of R they were built on
-ipt %>%
-  count(Built) %>%
+
+# What version of R they were built on?
+df_pkgs |>
+  count(Built) |>
   mutate(prop = n / sum(n))
 
-#' Reflections
-
-## reflect on ^^ and make a few notes to yourself; inspiration
-##   * does the number of base + recommended packages make sense to you?
-##   * how does the result of .libPaths() relate to the result of .Library?
 
 
-#' Going further
+# Reflect on the above and make a few notes to yourself ------------------------
+# What did you learn about your R package installation?
+# What are you curious to know more about?
 
-## if you have time to do more ...
 
-## is every package in .Library either base or recommended?
-all_default_pkgs <- list.files(.Library)
+# If you have time to do more. -------------------------------------------------
 
-all_br_pkgs <- ipt %>%
-  filter(Priority %in% c("base", "recommended")) %>%
-  pull(Package)
+# Is every installed package either base or recommended?
+df_pkgs |>
+  count(Priority %in% c("base", "recommended"))
 
-setdiff(all_default_pkgs, all_br_pkgs)
 
-## study package naming style (all lower case, contains '.', etc
+# Explore package naming conventions (all lower case, contains '.', etc)
+df_pkgs |>
+  count(str_detect(Package, "\\."))
 
-## use `fields` argument to installed.packages() to get more info and use it!
-ipt2 <- installed.packages(fields = "URL") %>%
+# Use `fields` argument to installed.packages() to get more info.
+# ?installed.packages
+df_pkgs_url <- installed.packages(fields = "URL") |>
   as_tibble()
 
-ipt2 %>%
-  mutate(github = grepl("github", URL)) %>%
-  count(github) %>%
+# What proportion of packages have a URL that point to github?
+df_pkgs_url |>
+  mutate(github = str_detect(URL, "github")) |>
+  count(github) |>
   mutate(prop = n / sum(n))

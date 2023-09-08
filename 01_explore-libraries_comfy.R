@@ -1,40 +1,39 @@
-#' Which libraries does R search for packages?
-
-# try .libPaths(), .Library
+# A first exploration of installed packages ------------------------------------
 
 
-#' Installed packages
-
-## use installed.packages() to get all installed packages
-## if you like working with data frame or tibble, make it so right away!
-## remember to use View(), dplyr::glimpse(), or similar to inspect
-
-## how many packages?
+# In which libraries does R search for packages? -------------------------------
+# your personal computing environment may return one or more locations
+# .libPaths(), .Library
 
 
-#' Exploring the packages
-
-## count some things! inspiration
-##   * tabulate by LibPath, Priority, or both
-##   * what proportion need compilation?
-##   * how break down re: version of R they were built on
-
-## for tidyverts, here are some useful patterns
-# data %>% count(var)
-# data %>% count(var1, var2)
-# data %>% count(var) %>% mutate(prop = n / sum(n))
-
-#' Reflections
-
-## reflect on ^^ and make a few notes to yourself; inspiration
-##   * does the number of base + recommended packages make sense to you?
-##   * how does the result of .libPaths() relate to the result of .Library?
+# Create a tibble of all installed packages ------------------------------------
+# use installed.packages() to get all installed packages
+# if you like working with data frame or tibble, make it so right away!
+# remember to use View(), dplyr::glimpse(), or similar to inspect
 
 
-#' Going further
+# How many packages are installed? ---------------------------------------------
 
-## if you have time to do more ...
 
-## is every package in .Library either base or recommended?
-## study package naming style (all lower case, contains '.', etc)
-## use `fields` argument to installed.packages() to get more info and use it!
+# Explore the packages - count some things. ------------------------------------
+# For example, tabulate by LibPath, Priority, or both.
+# What proportion need compilation?
+# What version of R they were built on?
+
+# For tidyverse users, here are some useful patterns
+# data |> count(var)
+# data |> count(var1, var2)
+# data |> count(var) %>% mutate(prop = n / sum(n))
+
+
+# Reflect on the above and make a few notes to yourself ------------------------
+# What did you learn about your R package installation?
+# What are you curious to know more about?
+
+
+# If you have time to do more. -------------------------------------------------
+
+# Is every installed package either base or recommended?
+# Explore package naming conventions (all lower case, contains '.', etc)
+# Use `fields` argument to installed.packages() to get more info.
+#   -- What proportion of packages have a URL that point to github?
